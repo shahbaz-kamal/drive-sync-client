@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext(null);
 
@@ -16,7 +17,20 @@ const AuthProvider = ({ children }) => {
       });
   }, []);
 
-  const authInfo = { user };
+  //   logout function
+  const logout = async () => {
+    try {
+      await axiosPublic.get("auth/logout");
+      setUser(null); // Clear user from context
+      Swal.fire({
+        text: "Logout Successful",
+        icon: "success",
+      });
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  const authInfo = { user, logout };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

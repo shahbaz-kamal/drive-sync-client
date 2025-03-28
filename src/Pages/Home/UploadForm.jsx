@@ -6,13 +6,13 @@ const UploadForm = () => {
   const { user } = UseAuth();
   return (
     <div
-      className="hero min-h-screen"
+      className="hero min-h-screen "
       style={{
         backgroundImage: "url(https://i.ibb.co.com/9ky0Lvt5/drive-Sync.webp)",
       }}
     >
       <div className="hero-overlay bg-black bg-opacity-70"></div>
-      <div className="hero-content text-neutral-content  w-11/12 md:w-10/12 mx-auto">
+      <div className="hero-content text-neutral-content  w-11/12 md:w-10/12 mx-auto pt-[120px]">
         <div className="flex flex-col justify-center items-center">
           <h1 className="mb-10 text-5xl font-bold text-center ">
             {user?.emails && <span>Welcome, {user?.displayName}. </span>}Please,

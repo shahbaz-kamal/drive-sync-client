@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.webp";
+import UseAuth from "../Hooks/UseAuth";
 
 const Navbar = () => {
+  const { user, logout } = UseAuth();
   return (
     <div className="navbar  w-11/12 md:w-10/12 mx-auto justify-center items-center  ">
       <div className="navbar-start">
@@ -22,7 +24,10 @@ const Navbar = () => {
 
       <div className="navbar-end">
         <div>
-          <button className="btn bg-primary border border-primary hover:bg-primary hover:bg-opacity-80 hover:border-opacity-80 transition duration-300 ease-in-out hover:text-white"> log Out</button>
+            {user?.emails &&  <button onClick={logout} className="btn bg-primary border border-primary hover:bg-primary hover:bg-opacity-80 hover:border-opacity-80 transition duration-300 ease-in-out hover:text-white">
+            log Out
+          </button>}
+         
         </div>
       </div>
     </div>
