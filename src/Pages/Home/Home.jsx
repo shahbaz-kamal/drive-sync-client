@@ -4,12 +4,16 @@ import UploadForm from "./UploadForm";
 import UseAuth from "../../Hooks/UseAuth";
 
 const Home = () => {
-    const name=UseAuth()
-    console.log(name)
+  const { user } = UseAuth();
+  console.log(user);
   return (
     <div className="space-y-10">
-      <Banner></Banner>
-      <UploadForm></UploadForm>
+      {!user?.emails && (
+        <div>
+          <Banner></Banner>
+        </div>
+      )}
+      {user?.emails && <UploadForm></UploadForm>}
     </div>
   );
 };

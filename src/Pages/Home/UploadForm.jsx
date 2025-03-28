@@ -1,7 +1,9 @@
 import React from "react";
-import { FaGoogle } from "react-icons/fa";
+
+import UseAuth from "../../Hooks/UseAuth";
 
 const UploadForm = () => {
+  const { user } = UseAuth();
   return (
     <div
       className="hero min-h-screen"
@@ -11,8 +13,11 @@ const UploadForm = () => {
     >
       <div className="hero-overlay bg-black bg-opacity-70"></div>
       <div className="hero-content text-neutral-content  w-11/12 md:w-10/12 mx-auto">
-        <div className="">
-          <h1 className="mb-5 text-5xl font-bold">Update your info</h1>
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="mb-10 text-5xl font-bold text-center ">
+            {user?.emails && <span>Welcome, {user?.displayName}. </span>}Please,
+            Update your info
+          </h1>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <form className="card-body">
               {/* name */}

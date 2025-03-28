@@ -1,8 +1,12 @@
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+
 
 const Banner = () => {
+
+    const handleLogin=()=>{
+         window.location.href = 'http://localhost:5000/auth/google'
+    }
   return (
     <div
       className="hero min-h-screen"
@@ -23,7 +27,7 @@ const Banner = () => {
             authentication, DriveSync keeps your information safe and always in
             sync.
           </p>
-          <button className="btn btn-warning">
+          <button onClick={handleLogin} className="btn btn-warning">
             <FaGoogle />
             Login to Get Started
           </button>
