@@ -27,11 +27,8 @@ const UploadForm = () => {
       return;
     }
     setUploading(true);
-    const name = e.target.name.value;
-    const phone = e.target.phone.value;
-    const email = e.target.email.value;
-    const address = e.target.address.value;
-    // const newInformation = { name, phone, email, address, file };
+    
+
     const formData = new FormData();
     formData.append("file", file);
     try {
@@ -46,10 +43,24 @@ const UploadForm = () => {
         uploadResponse.data.file.webContentLink;
       setImageUrl(url);
       setUploadComplete(true);
-      setUploading(false)
+
       console.log(imageUrl);
+    //   uploading to google sheet
+    const name = e.target.name.value;
+    const phone = e.target.phone.value;
+    const email = e.target.email.value;
+    const address = e.target.address.value;
+      const newInformation = { name, phone, email, address, imageUrl };
+      const saveResponse=await axiosPublic.post('api/save-to-sheet',newInformation)
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Your information has been saved to google sheet",
+      });
     } catch (error) {
       console.log(error);
+    } finally {
+      setUploading(false);
     }
   };
 
