@@ -1,9 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 
 import UseAuth from "../../Hooks/UseAuth";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const UploadForm = () => {
+  const axiosPublic = useAxiosPublic();
   const { user } = UseAuth();
+  const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [uploadComplete, setUploadComplete] = useState(false);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+    setUploadComplete(false); // Reset when new file is selected
+  };
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    if (!file) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select an image",
+      });
+      return;
+    }
+    setUploading(true);
+    const name = e.target.name.value;
+    const phone = e.target.phone.value;
+    const email = e.target.email.value;
+    const address = e.target.address.value;
+    // const newInformation = { name, phone, email, address, file };
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const uploadResponse = await axiosPublic.post("api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      // Get the image URL from response
+      const url =
+        uploadResponse.data.file.webViewLink ||
+        uploadResponse.data.file.webContentLink;
+      setImageUrl(url);
+      setUploadComplete(true);
+      setUploading(false)
+      console.log(imageUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div
       className="hero min-h-screen "
@@ -19,7 +68,7 @@ const UploadForm = () => {
             Update your info
           </h1>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <form className="card-body">
+            <form onSubmit={handleUpdate} className="card-body">
               {/* name */}
               <div className="form-control">
                 <label className="label">
@@ -52,6 +101,7 @@ const UploadForm = () => {
                   <span className="label-text text-black mb-1">Email</span>
                 </label>
                 <input
+                  name="email"
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
@@ -64,6 +114,7 @@ const UploadForm = () => {
                   <span className="label-text text-black mb-1">Address</span>
                 </label>
                 <input
+                  name="address"
                   type="text"
                   placeholder="Address"
                   className="input input-bordered"
@@ -79,6 +130,9 @@ const UploadForm = () => {
                 <input
                   type="file"
                   className="file-input file-input-bordered w-full max-w-xs"
+                  onChange={handleFileChange}
+                  accept="image/*"
+                  disabled={uploading}
                 />
               </div>
               <div className="form-control mt-6">
