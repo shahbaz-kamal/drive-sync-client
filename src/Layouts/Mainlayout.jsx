@@ -5,10 +5,10 @@ import { Outlet } from "react-router-dom";
 const Mainlayout = () => {
   return (
     <>
-      <header className="w-full">
+      <header className="w-full fixed">
         <Navbar></Navbar>
       </header>
-      <section className="mt-10">
+      <section className="">
         <Outlet></Outlet>
       </section>
     </>

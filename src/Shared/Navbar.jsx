@@ -4,7 +4,7 @@ import logo from "../assets/logo.webp";
 
 const Navbar = () => {
   return (
-    <div className="navbar  w-11/12 md:w-10/12 mx-auto justify-center items-center">
+    <div className="navbar  w-11/12 md:w-10/12 mx-auto justify-center items-center  ">
       <div className="navbar-start">
         <div className="w-10 h-10 rounded-full mr-2">
           <img
@@ -14,7 +14,7 @@ const Navbar = () => {
           />
         </div>
         <Link to={"/"}>
-          <h3 className="text-xl md:text-3xl hidden md:inline-flex">
+          <h3 className="text-xl md:text-3xl hidden md:inline-flex text-primary font-bold">
             driveSync
           </h3>
         </Link>
@@ -22,7 +22,7 @@ const Navbar = () => {
 
       <div className="navbar-end">
         <div>
-          <button className="btn"> log Out</button>
+          <button className="btn bg-primary border border-primary hover:bg-primary hover:bg-opacity-80 hover:border-opacity-80 transition duration-300 ease-in-out hover:text-white"> log Out</button>
         </div>
       </div>
     </div>
