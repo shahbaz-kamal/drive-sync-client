@@ -27,7 +27,6 @@ const UploadForm = () => {
       return;
     }
     setUploading(true);
-    
 
     const formData = new FormData();
     formData.append("file", file);
@@ -45,18 +44,23 @@ const UploadForm = () => {
       setUploadComplete(true);
 
       console.log(imageUrl);
-    //   uploading to google sheet
-    const name = e.target.name.value;
-    const phone = e.target.phone.value;
-    const email = e.target.email.value;
-    const address = e.target.address.value;
-      const newInformation = { name, phone, email, address, imageUrl };
-      const saveResponse=await axiosPublic.post('api/save-to-sheet',newInformation)
-      Swal.fire({
-        icon: "success",
-        title: "Success!",
-        text: "Your information has been saved to google sheet",
-      });
+      //   uploading to google sheet
+      if (imageUrl) {
+        const name = e.target.name.value;
+        const phone = e.target.phone.value;
+        const email = e.target.email.value;
+        const address = e.target.address.value;
+        const newInformation = { name, phone, email, address, imageUrl };
+        const saveResponse = await axiosPublic.post(
+          "api/save-to-sheet",
+          newInformation
+        );
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Your information has been saved to google sheet",
+        });
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -89,7 +93,7 @@ const UploadForm = () => {
                   name="name"
                   type="text"
                   placeholder="Name"
-                  className="input input-bordered"
+                  className="input input-bordered text-black"
                   required
                 />
               </div>
@@ -102,7 +106,7 @@ const UploadForm = () => {
                   name="phone"
                   type="number"
                   placeholder="Phone number"
-                  className="input input-bordered"
+                  className="input input-bordered text-black"
                   required
                 />
               </div>
@@ -115,20 +119,20 @@ const UploadForm = () => {
                   name="email"
                   type="email"
                   placeholder="email"
-                  className="input input-bordered"
+                  className="input input-bordered text-black"
                   required
                 />
               </div>
               {/* address */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-black mb-1">Address</span>
+                  <span className="label-text text-black mb-1 ">Address</span>
                 </label>
                 <input
                   name="address"
                   type="text"
                   placeholder="Address"
-                  className="input input-bordered"
+                  className="input input-bordered text-black"
                   required
                 />
               </div>
@@ -140,7 +144,7 @@ const UploadForm = () => {
                 </label>
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-black"
                   onChange={handleFileChange}
                   accept="image/*"
                   disabled={uploading}
