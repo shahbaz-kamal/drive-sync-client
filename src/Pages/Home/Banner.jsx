@@ -1,12 +1,11 @@
 import React from "react";
 import { FaGoogle } from "react-icons/fa";
 
-
 const Banner = () => {
-
-    const handleLogin=()=>{
-         window.location.href = 'http://localhost:5000/auth/google'
-    }
+  const handleLogin = () => {
+    //  window.location.href = 'http://localhost:5000/auth/google'
+    window.location.href = "https://drive-sync-server.vercel.app/auth/google";
+  };
   return (
     <div
       className="hero min-h-screen"
